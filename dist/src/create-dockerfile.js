@@ -35,65 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-exports.GlueStackPlugin = void 0;
-var package_json_1 = __importDefault(require("../package.json"));
-var PluginInstance_1 = require("./PluginInstance");
-var writeEnv_1 = require("./helpers/writeEnv");
-var GlueStackPlugin = (function () {
-    function GlueStackPlugin(app, gluePluginStore) {
-        this.type = "stateless";
-        this.app = app;
-        this.instances = [];
-        this.gluePluginStore = gluePluginStore;
-    }
-    GlueStackPlugin.prototype.init = function () {
-    };
-    GlueStackPlugin.prototype.destroy = function () {
-    };
-    GlueStackPlugin.prototype.getName = function () {
-        return package_json_1["default"].name;
-    };
-    GlueStackPlugin.prototype.getVersion = function () {
-        return package_json_1["default"].version;
-    };
-    GlueStackPlugin.prototype.getType = function () {
-        return this.type;
-    };
-    GlueStackPlugin.prototype.getTemplateFolderPath = function () {
-        return "".concat(process.cwd(), "/node_modules/").concat(this.getName(), "/template");
-    };
-    GlueStackPlugin.prototype.getInstallationPath = function (target) {
-        return "./backend/functions/".concat(target);
-    };
-    GlueStackPlugin.prototype.runPostInstall = function (instanceName, target) {
-        return __awaiter(this, void 0, void 0, function () {
-            var functionInstance;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4, this.app.createPluginInstance(this, instanceName, this.getTemplateFolderPath(), target)];
-                    case 1:
-                        functionInstance = _a.sent();
-                        return [4, (0, writeEnv_1.writeEnv)(functionInstance)];
-                    case 2:
-                        _a.sent();
-                        return [2];
-                }
-            });
-        });
-    };
-    GlueStackPlugin.prototype.createInstance = function (key, gluePluginStore, installationPath) {
-        var instance = new PluginInstance_1.PluginInstance(this.app, this, key, gluePluginStore, installationPath);
-        this.instances.push(instance);
-        return instance;
-    };
-    GlueStackPlugin.prototype.getInstances = function () {
-        return this.instances;
-    };
-    return GlueStackPlugin;
-}());
-exports.GlueStackPlugin = GlueStackPlugin;
-//# sourceMappingURL=index.js.map
+exports.generateDockerfile = void 0;
+var path_1 = require("path");
+var fs_1 = require("fs");
+var generateDockerfile = function (installationPath) { return __awaiter(void 0, void 0, void 0, function () {
+    var filepath, dockerfile;
+    return __generator(this, function (_a) {
+        filepath = (0, path_1.join)(process.cwd(), installationPath);
+        dockerfile = [];
+        dockerfile.push("FROM node:lts");
+        dockerfile.push("WORKDIR /functions");
+        dockerfile.push("COPY . .");
+        dockerfile.push("RUN npm install");
+        dockerfile.push("COPY . .");
+        dockerfile.push("EXPOSE 3000");
+        (0, fs_1.writeFileSync)((0, path_1.join)(filepath, "Dockerfile"), dockerfile.join("\n"));
+        return [2];
+    });
+}); };
+exports.generateDockerfile = generateDockerfile;
+//# sourceMappingURL=create-dockerfile.js.map

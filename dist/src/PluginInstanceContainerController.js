@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.PluginInstanceContainerController = void 0;
 var _a = require("@gluestack/helpers"), SpawnHelper = _a.SpawnHelper, DockerodeHelper = _a.DockerodeHelper;
+var create_dockerfile_1 = require("./create-dockerfile");
 var PluginInstanceContainerController = (function () {
     function PluginInstanceContainerController(app, callerInstance) {
         this.status = "down";
@@ -54,12 +55,14 @@ var PluginInstanceContainerController = (function () {
         return ["npm", "install"];
     };
     PluginInstanceContainerController.prototype.runScript = function () {
-        return ["npm", "run", "start:dev", this.getPortNumber()];
+        return ["npm", "run", "dev"];
     };
     PluginInstanceContainerController.prototype.getEnv = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2, ""];
+                return [2, {
+                        APP_PORT: this.getPortNumber(true)
+                    }];
             });
         });
     };
@@ -74,7 +77,7 @@ var PluginInstanceContainerController = (function () {
             return this.portNumber;
         }
         if (returnDefault) {
-            return 6500;
+            return 4500;
         }
     };
     PluginInstanceContainerController.prototype.getContainerId = function () {
@@ -186,7 +189,12 @@ var PluginInstanceContainerController = (function () {
     PluginInstanceContainerController.prototype.build = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2];
+                switch (_a.label) {
+                    case 0: return [4, (0, create_dockerfile_1.generateDockerfile)(this.callerInstance.getInstallationPath())];
+                    case 1:
+                        _a.sent();
+                        return [2];
+                }
             });
         });
     };
