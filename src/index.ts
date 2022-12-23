@@ -60,7 +60,7 @@ export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
       );
     if (functionInstance) {
       await writeEnv(functionInstance);
-      functionInstance.getContainerController().up();
+      await functionInstance.getContainerController().up();
     }
   }
 
