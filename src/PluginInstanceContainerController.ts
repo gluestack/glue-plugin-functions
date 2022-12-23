@@ -35,7 +35,7 @@ export class PluginInstanceContainerController implements IContainerController {
 
   async getEnv() {
     return {
-      APP_PORT: this.getPortNumber(true),
+      APP_PORT: await this.getPortNumber(),
     };
   }
 
@@ -47,18 +47,25 @@ export class PluginInstanceContainerController implements IContainerController {
     return this.status;
   }
 
-  getPortNumber(returnDefault?: boolean): number {
-    if (this.portNumber) {
-      return this.portNumber;
-    }
-    if (returnDefault) {
+  //@ts-ignore
+  async getPortNumber(returnDefault?: boolean) {
+    return new Promise((resolve, reject) => {
+      if (this.portNumber) {
+        return resolve(this.portNumber);
+      }
       let ports =
         this.callerInstance.callerPlugin.gluePluginStore.get("ports") || [];
-      let port = ports.length ? parseInt(ports[ports.length - 1]) + 1 : 4500;
-      ports.push(port);
-      this.callerInstance.callerPlugin.gluePluginStore.set("ports", ports);
-      return port;
-    }
+      DockerodeHelper.getPort(4500, ports)
+        .then((port: number) => {
+          this.setPortNumber(port);
+          ports.push(port);
+          this.callerInstance.callerPlugin.gluePluginStore.set("ports", ports);
+          return resolve(this.portNumber);
+        })
+        .catch((e: any) => {
+          reject(e);
+        });
+    });
   }
 
   getContainerId(): string {
@@ -111,14 +118,12 @@ export class PluginInstanceContainerController implements IContainerController {
               this.callerInstance.getInstallationPath(),
               this.runScript(),
             )
-              .then(({ processId }: { processId: string }) => {
+              .then(async ({ processId }: { processId: string }) => {
                 this.setStatus("up");
                 this.setContainerId(processId);
                 console.log("\x1b[32m");
                 console.log(
-                  `Use http://localhost:${this.getPortNumber(
-                    true,
-                  )}/ as your function endpoint`,
+                  `Use http://localhost:${await this.getPortNumber()}/ as your function endpoint`,
                 );
                 console.log("\x1b[0m");
                 return resolve(true);
@@ -131,6 +136,12 @@ export class PluginInstanceContainerController implements IContainerController {
             return reject(e);
           });
       });
+    } else {
+      console.log("\x1b[32m");
+      console.log(
+        `Use http://localhost:${await this.getPortNumber()}/ as your function endpoint`,
+      );
+      console.log("\x1b[0m");
     }
   }
 

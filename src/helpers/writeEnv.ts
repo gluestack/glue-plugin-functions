@@ -1,20 +1,15 @@
 import * as fs from "fs";
 import { PluginInstance } from "../PluginInstance";
 
-export async function constructEnvFromJson(
-  functionInstance: PluginInstance,
-) {
+export async function constructEnvFromJson(functionInstance: PluginInstance) {
   const keys: any = {
-    //@ts-ignore
-    APP_PORT: functionInstance.getContainerController().getPortNumber(true),
+    APP_PORT: await functionInstance.getContainerController().getPortNumber(),
   };
 
   return keys;
 }
 
-export async function writeEnv(
-  functionInstance: PluginInstance,
-) {
+export async function writeEnv(functionInstance: PluginInstance) {
   const path = `${functionInstance.getInstallationPath()}/.env`;
   let env = "";
   const keys: any = await constructEnvFromJson(functionInstance);

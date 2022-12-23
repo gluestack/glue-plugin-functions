@@ -64,11 +64,17 @@ var fs = __importStar(require("fs"));
 function constructEnvFromJson(functionInstance) {
     return __awaiter(this, void 0, void 0, function () {
         var keys;
-        return __generator(this, function (_a) {
-            keys = {
-                APP_PORT: functionInstance.getContainerController().getPortNumber(true)
-            };
-            return [2, keys];
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = {};
+                    return [4, functionInstance.getContainerController().getPortNumber()];
+                case 1:
+                    keys = (_a.APP_PORT = _b.sent(),
+                        _a);
+                    return [2, keys];
+            }
         });
     });
 }

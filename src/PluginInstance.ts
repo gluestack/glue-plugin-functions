@@ -29,6 +29,7 @@ export class PluginInstance implements IInstance, IHasContainerController, ILife
     this.callerPlugin = callerPlugin;
     this.gluePluginStore = gluePluginStore;
     this.installationPath = installationPath;
+    //@ts-ignore
     this.containerController = new PluginInstanceContainerController(app, this);
   }
 

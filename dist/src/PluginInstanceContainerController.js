@@ -59,10 +59,15 @@ var PluginInstanceContainerController = (function () {
     };
     PluginInstanceContainerController.prototype.getEnv = function () {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2, {
-                        APP_PORT: this.getPortNumber(true)
-                    }];
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = {};
+                        return [4, this.getPortNumber()];
+                    case 1: return [2, (_a.APP_PORT = _b.sent(),
+                            _a)];
+                }
             });
         });
     };
@@ -73,16 +78,26 @@ var PluginInstanceContainerController = (function () {
         return this.status;
     };
     PluginInstanceContainerController.prototype.getPortNumber = function (returnDefault) {
-        if (this.portNumber) {
-            return this.portNumber;
-        }
-        if (returnDefault) {
-            var ports = this.callerInstance.callerPlugin.gluePluginStore.get("ports") || [];
-            var port = ports.length ? parseInt(ports[ports.length - 1]) + 1 : 4500;
-            ports.push(port);
-            this.callerInstance.callerPlugin.gluePluginStore.set("ports", ports);
-            return port;
-        }
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2, new Promise(function (resolve, reject) {
+                        if (_this.portNumber) {
+                            return resolve(_this.portNumber);
+                        }
+                        var ports = _this.callerInstance.callerPlugin.gluePluginStore.get("ports") || [];
+                        DockerodeHelper.getPort(4500, ports)
+                            .then(function (port) {
+                            _this.setPortNumber(port);
+                            ports.push(port);
+                            _this.callerInstance.callerPlugin.gluePluginStore.set("ports", ports);
+                            return resolve(_this.portNumber);
+                        })["catch"](function (e) {
+                            reject(e);
+                        });
+                    })];
+            });
+        });
     };
     PluginInstanceContainerController.prototype.getContainerId = function () {
         return this.containerId;
@@ -102,9 +117,10 @@ var PluginInstanceContainerController = (function () {
     PluginInstanceContainerController.prototype.getConfig = function () { };
     PluginInstanceContainerController.prototype.up = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var _a, _b, _c;
             var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         if (!(this.getStatus() !== "up")) return [3, 2];
                         return [4, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
@@ -119,12 +135,24 @@ var PluginInstanceContainerController = (function () {
                                         SpawnHelper.start(_this.callerInstance.getInstallationPath(), _this.runScript())
                                             .then(function (_a) {
                                             var processId = _a.processId;
-                                            _this.setStatus("up");
-                                            _this.setContainerId(processId);
-                                            console.log("\x1b[32m");
-                                            console.log("Use http://localhost:".concat(_this.getPortNumber(true), "/ as your function endpoint"));
-                                            console.log("\x1b[0m");
-                                            return resolve(true);
+                                            return __awaiter(_this, void 0, void 0, function () {
+                                                var _b, _c, _d;
+                                                return __generator(this, function (_e) {
+                                                    switch (_e.label) {
+                                                        case 0:
+                                                            this.setStatus("up");
+                                                            this.setContainerId(processId);
+                                                            console.log("\x1b[32m");
+                                                            _c = (_b = console).log;
+                                                            _d = "Use http://localhost:".concat;
+                                                            return [4, this.getPortNumber()];
+                                                        case 1:
+                                                            _c.apply(_b, [_d.apply("Use http://localhost:", [_e.sent(), "/ as your function endpoint"])]);
+                                                            console.log("\x1b[0m");
+                                                            return [2, resolve(true)];
+                                                    }
+                                                });
+                                            });
                                         })["catch"](function (e) {
                                             return reject(e);
                                         });
@@ -135,9 +163,18 @@ var PluginInstanceContainerController = (function () {
                                 });
                             }); })];
                     case 1:
-                        _a.sent();
-                        _a.label = 2;
-                    case 2: return [2];
+                        _d.sent();
+                        return [3, 4];
+                    case 2:
+                        console.log("\x1b[32m");
+                        _b = (_a = console).log;
+                        _c = "Use http://localhost:".concat;
+                        return [4, this.getPortNumber()];
+                    case 3:
+                        _b.apply(_a, [_c.apply("Use http://localhost:", [_d.sent(), "/ as your function endpoint"])]);
+                        console.log("\x1b[0m");
+                        _d.label = 4;
+                    case 4: return [2];
                 }
             });
         });
