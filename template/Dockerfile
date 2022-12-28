@@ -20,4 +20,4 @@ EXPOSE 3500
 RUN ["npm", "rebuild", "bcrypt", "--build-from-source"]
 
 # Run the app using Dapr
-CMD ["sh", "-c", "dapr run --app-port ${AUTH_APP_PORT} --app-id ${AUTH_APP_ID} --app-protocol ${AUTH_APP_PROTOCOL} --dapr-http-port ${AUTH_DAPR_PORT} --components-path ./components -- npm run start:dev"]
+CMD ["sh", "-c", "dapr run --app-port 4500 --app-id \"functions\" --app-protocol \"http\" --dapr-http-port 3500 --components-path ./components -- npm run start:dev"]
