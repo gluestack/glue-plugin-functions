@@ -30,7 +30,20 @@ export class PluginInstanceContainerController implements IContainerController {
   }
 
   runScript() {
-    return ["npm", "run", "dev"];
+    const array = this.callerInstance.getInstallationPath().split("/");
+    let appID = array.pop();
+    if (appID === '') {
+      appID = array.pop();
+    }
+    return [
+      "dapr",
+      "run",
+      "-p", "9000", // app port
+      "-a", appID, // app id
+      "-P", "http", // dapr http protocol
+      "-H", this.getPortNumber(), /// dapr http port
+      "-d", "src/components"
+    ];
   }
 
   async getEnv() {
