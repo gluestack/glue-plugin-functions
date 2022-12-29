@@ -66,7 +66,7 @@ var PluginInstanceContainerController = (function () {
             "-p", "9000",
             "-a", appID,
             "-P", "http",
-            "-H", this.getPortNumber(),
+            "-H", "3500",
             "-d", "src/components"
         ];
     };

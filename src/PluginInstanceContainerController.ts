@@ -35,13 +35,14 @@ export class PluginInstanceContainerController implements IContainerController {
     if (appID === '') {
       appID = array.pop();
     }
+
     return [
       "dapr",
       "run",
       "-p", "9000", // app port
       "-a", appID, // app id
       "-P", "http", // dapr http protocol
-      "-H", this.getPortNumber(), /// dapr http port
+      "-H", "3500", /// dapr http port
       "-d", "src/components"
     ];
   }
