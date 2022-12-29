@@ -1,0 +1,32 @@
+{
+    "name": "@gluestack/glue-plugin-functions",
+    "version": "0.0.10",
+    "description": "functions plugin for gluestack",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gluestack/create-gluestack-app"
+    },
+    "keywords": [
+        "npm",
+        "create-gluestack-app"
+    ],
+    "author": "Shivam Singhal",
+    "license": "ISC",
+    "dependencies": {
+        "@gluestack/framework": "^0.0.14",
+        "@gluestack/helpers": "^0.0.8",
+        "@types/node": "^18.11.17"
+    },
+    "main": "dist/src/index.js",
+    "scripts": {
+        "plugin-dev": "tsc --watch",
+        "plugin-build": "tsc"
+    },
+    "devDependencies": {
+        "@gluestack/framework": "^0.0.14",
+        "typescript": "^4.9.4"
+    },
+    "peerDependencies": {
+        "@gluestack/framework": "^0.0.14"
+    }
+}
