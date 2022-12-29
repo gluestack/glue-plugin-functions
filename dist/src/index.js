@@ -42,6 +42,7 @@ exports.__esModule = true;
 exports.GlueStackPlugin = void 0;
 var package_json_1 = __importDefault(require("../package.json"));
 var PluginInstance_1 = require("./PluginInstance");
+var writeEnv_1 = require("./helpers/writeEnv");
 var GlueStackPlugin = (function () {
     function GlueStackPlugin(app, gluePluginStore) {
         this.type = "stateless";
@@ -70,8 +71,19 @@ var GlueStackPlugin = (function () {
     };
     GlueStackPlugin.prototype.runPostInstall = function (instanceName, target) {
         return __awaiter(this, void 0, void 0, function () {
+            var functionInstance;
             return __generator(this, function (_a) {
-                return [2];
+                switch (_a.label) {
+                    case 0: return [4, this.app.createPluginInstance(this, instanceName, this.getTemplateFolderPath(), target)];
+                    case 1:
+                        functionInstance = _a.sent();
+                        if (!functionInstance) return [3, 3];
+                        return [4, (0, writeEnv_1.writeEnv)(functionInstance)];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3: return [2];
+                }
             });
         });
     };

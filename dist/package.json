@@ -1,6 +1,6 @@
 {
     "name": "@gluestack/glue-plugin-functions",
-    "version": "0.0.13",
+    "version": "0.0.15",
     "description": "functions plugin for gluestack",
     "repository": {
         "type": "git",
