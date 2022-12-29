@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:dev": "tsc --project './tsconfig.json' --watch & nodemon NODE_ENV=development dist/",
+    "start:dev": "tsc --project './tsconfig.json' --watch & NODE_ENV=development nodemon dist/",
     "start:server": "tsc && node dist",
     "lint": "./node_modules/.bin/tslint --fix -c tslint.json 'src/**/*.ts?(x)'"
   },
