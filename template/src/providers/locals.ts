@@ -9,7 +9,7 @@ class Locals {
   public static config(): any {
     dotenv.config({ path: path.join(__dirname, '../../.env') });
 
-    const port = process.env.APP_PORT || 4500;
+    const port = process.env.APP_PORT || 9000;
 
     return {
       port,
