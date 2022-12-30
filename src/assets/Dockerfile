@@ -13,4 +13,4 @@ RUN ["npm", "rebuild", "bcrypt", "--build-from-source"]
 RUN ["npm", "install", "nodemon"]
 
 # Run the app using Dapr
-CMD ["sh", "-c", "dapr run --app-port 9000 --app-id \"functions\" --app-protocol \"http\" --dapr-http-port 3500 --components-path ./components -- npm run start:dev"]
+CMD ["sh", "-c", "dapr run --app-port 9000 --app-id \"{APP_ID}\" --app-protocol \"http\" --dapr-http-port 3500 --components-path ./components -- npm run start:dev"]
