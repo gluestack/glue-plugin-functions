@@ -8,6 +8,7 @@ import ILifeCycle from "@gluestack/framework/types/plugin/interface/ILifeCycle";
 import IManagesInstances from "@gluestack/framework/types/plugin/interface/IManagesInstances";
 import IGlueStorePlugin from "@gluestack/framework/types/store/interface/IGluePluginStore";
 import { writeEnv } from "./helpers/writeEnv";
+import reWriteFile from "./helpers/reWriteFile";
 
 //Do not edit the name of this class
 export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
@@ -61,6 +62,8 @@ export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
 
     if (functionInstance) {
       await writeEnv(functionInstance);
+      const routerFilePath = `${functionInstance.getInstallationPath()}/router.ts`;
+      await reWriteFile(routerFilePath, instanceName, 'functions');
     }
   }
 
