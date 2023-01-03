@@ -63,16 +63,15 @@ exports.writeEnv = exports.constructEnvFromJson = void 0;
 var fs = __importStar(require("fs"));
 function constructEnvFromJson(functionInstance) {
     return __awaiter(this, void 0, void 0, function () {
-        var keys;
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _a = {};
-                    return [4, functionInstance.getContainerController().getPortNumber()];
+        var APP_PORT, keys;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4, functionInstance.getContainerController().getPortNumber()];
                 case 1:
-                    keys = (_a.APP_PORT = _b.sent(),
-                        _a);
+                    APP_PORT = _a.sent();
+                    keys = {
+                        APP_PORT: APP_PORT
+                    };
                     return [2, keys];
             }
         });

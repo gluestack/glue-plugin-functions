@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.PluginInstanceContainerController = void 0;
-var _a = require("@gluestack/helpers"), SpawnHelper = _a.SpawnHelper, DockerodeHelper = _a.DockerodeHelper;
+var DockerodeHelper = require("@gluestack/helpers").DockerodeHelper;
 var create_dockerfile_1 = require("./create-dockerfile");
 var PluginInstanceContainerController = (function () {
     function PluginInstanceContainerController(app, callerInstance) {

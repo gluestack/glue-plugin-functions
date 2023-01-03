@@ -2,8 +2,9 @@ import * as fs from "fs";
 import { PluginInstance } from "../PluginInstance";
 
 export async function constructEnvFromJson(functionInstance: PluginInstance) {
+  const APP_PORT = await functionInstance.getContainerController().getPortNumber();
   const keys: any = {
-    APP_PORT: await functionInstance.getContainerController().getPortNumber(),
+    APP_PORT,
   };
 
   return keys;
