@@ -82,7 +82,7 @@ var GlueStackPlugin = (function () {
                         return [4, (0, writeEnv_1.writeEnv)(functionInstance)];
                     case 2:
                         _a.sent();
-                        routerFilePath = "".concat(functionInstance.getInstallationPath(), "/router.ts");
+                        routerFilePath = "".concat(functionInstance.getInstallationPath(), "/router.js");
                         return [4, (0, reWriteFile_1["default"])(routerFilePath, instanceName, 'functions')];
                     case 3:
                         _a.sent();

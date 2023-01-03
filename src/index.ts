@@ -62,7 +62,7 @@ export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
 
     if (functionInstance) {
       await writeEnv(functionInstance);
-      const routerFilePath = `${functionInstance.getInstallationPath()}/router.ts`;
+      const routerFilePath = `${functionInstance.getInstallationPath()}/router.js`;
       await reWriteFile(routerFilePath, instanceName, 'functions');
     }
   }
