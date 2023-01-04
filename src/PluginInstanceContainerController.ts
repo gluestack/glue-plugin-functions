@@ -1,8 +1,8 @@
 const { DockerodeHelper } = require("@gluestack/helpers");
+
+import { PluginInstance } from "./PluginInstance";
 import IApp from "@gluestack/framework/types/app/interface/IApp";
 import IContainerController from "@gluestack/framework/types/plugin/interface/IContainerController";
-import { generateDockerfile } from "./create-dockerfile";
-import { PluginInstance } from "./PluginInstance";
 
 export class PluginInstanceContainerController implements IContainerController {
   app: IApp;
@@ -30,21 +30,7 @@ export class PluginInstanceContainerController implements IContainerController {
   }
 
   runScript() {
-    const array = this.callerInstance.getInstallationPath().split("/");
-    let appID = array.pop();
-    if (appID === '') {
-      appID = array.pop();
-    }
-
-    return [
-      "dapr",
-      "run",
-      "-p", "9000", // app port
-      "-a", appID, // app id
-      "-P", "http", // dapr http protocol
-      "-H", "3500", /// dapr http port
-      "-d", "src/components"
-    ];
+    // do nothing
   }
 
   async getEnv() {
@@ -111,6 +97,6 @@ export class PluginInstanceContainerController implements IContainerController {
   }
 
   async build() {
-    await generateDockerfile(this.callerInstance.getInstallationPath());
+    //
   }
 }

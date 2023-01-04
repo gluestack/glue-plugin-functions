@@ -38,7 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.PluginInstanceContainerController = void 0;
 var DockerodeHelper = require("@gluestack/helpers").DockerodeHelper;
-var create_dockerfile_1 = require("./create-dockerfile");
 var PluginInstanceContainerController = (function () {
     function PluginInstanceContainerController(app, callerInstance) {
         this.status = "down";
@@ -55,20 +54,6 @@ var PluginInstanceContainerController = (function () {
         return ["npm", "install"];
     };
     PluginInstanceContainerController.prototype.runScript = function () {
-        var array = this.callerInstance.getInstallationPath().split("/");
-        var appID = array.pop();
-        if (appID === '') {
-            appID = array.pop();
-        }
-        return [
-            "dapr",
-            "run",
-            "-p", "9000",
-            "-a", appID,
-            "-P", "http",
-            "-H", "3500",
-            "-d", "src/components"
-        ];
     };
     PluginInstanceContainerController.prototype.getEnv = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -143,12 +128,7 @@ var PluginInstanceContainerController = (function () {
     PluginInstanceContainerController.prototype.build = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4, (0, create_dockerfile_1.generateDockerfile)(this.callerInstance.getInstallationPath())];
-                    case 1:
-                        _a.sent();
-                        return [2];
-                }
+                return [2];
             });
         });
     };
