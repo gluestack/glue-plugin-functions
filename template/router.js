@@ -6,4 +6,4 @@ module.exports = () => [
       "path": "/v1.0/invoke/functions/method/"
     }
   }
-]
+];
