@@ -4,7 +4,7 @@
     "description": "functions plugin for gluestack",
     "repository": {
         "type": "git",
-        "url": "https://github.com/gluestack/create-gluestack-app"
+        "url": "https://github.com/gluestack/glue-plugin-functions"
     },
     "keywords": [
         "npm",
