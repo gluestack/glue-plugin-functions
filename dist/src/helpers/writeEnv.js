@@ -70,7 +70,8 @@ function constructEnvFromJson(functionInstance) {
                 case 1:
                     APP_PORT = _a.sent();
                     keys = {
-                        APP_PORT: APP_PORT
+                        APP_PORT: APP_PORT,
+                        GLUE_PUBLIC: "true"
                     };
                     return [2, keys];
             }

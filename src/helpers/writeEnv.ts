@@ -5,6 +5,7 @@ export async function constructEnvFromJson(functionInstance: PluginInstance) {
   const APP_PORT = await functionInstance.getContainerController().getPortNumber();
   const keys: any = {
     APP_PORT,
+    GLUE_PUBLIC: "true"
   };
 
   return keys;
