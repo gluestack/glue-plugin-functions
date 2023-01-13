@@ -18,6 +18,7 @@ app.post('/webhook', (req, res) => {
   const body = req.body;
 
   // do something with the body here
+  console.log({ body });
 
   return res.status(200).json({status: true, message: 'done'});
 });
