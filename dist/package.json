@@ -26,6 +26,6 @@
         "typescript": "^4.9.4"
     },
     "peerDependencies": {
-        "@gluestack/glue-plugin-engine": "^0.0.x"
+        "@gluestack/glue-plugin-backend-engine": "^0.0.x"
     }
 }
