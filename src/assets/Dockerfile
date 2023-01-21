@@ -7,9 +7,6 @@ RUN ["npm", "install"]
 COPY . .
 EXPOSE 3500
 
-# https://stackoverflow.com/a/56454994
-RUN ["npm", "rebuild", "bcrypt", "--build-from-source"]
-
 RUN ["npm", "install", "nodemon"]
 
 # Run the app using Dapr
