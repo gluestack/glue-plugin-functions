@@ -1,0 +1,135 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="Function Plugin Docs/How It Works" />
+
+
+# How it works
+
+##
+
+<br/>
+
+* ## Working
+  
+  <br/>
+  
+  * Every function plugin instance will be running with a **Dapr Sidecar** which
+  is managed by your **Backend-Engine** plugin.
+  
+  <br/>
+  
+  * Your **Backend-Engine** plugin will treat every single function plugin instance as
+  a seperatre independent microservice. Behind the scene it will handle everything.
+  
+  <br/>
+
+  * If the function plugin is installed correctly, then you will get a boilerplate
+  for your function plugin inside which you can start writing your own logic.
+
+  <br/>
+  
+  * Your directory stucture for the **function instance func1** should be something like
+    this:
+    ```
+      📦func1
+      ┣ 📂components
+      ┃ ┗ 📜function.yaml
+      ┣ 📂node_modules
+      ┣ 📜.env
+      ┣ 📜.env.example
+      ┣ 📜Dockerfile
+      ┣ 📜README.md
+      ┣ 📜package.json
+      ┣ 📜router.js
+      ┗ 📜server.js
+    ```
+  <br/>
+  
+  * In order to interact with this plugin there is a file named **router.js**.
+    If you open that **routes.js** file , you will see a string value attached 
+    to a key named **path**, this is the string which you need to append after 
+    your nginx url (http://localhost:9090).
+  
+    In the above case, path value should be something like this:
+    
+    ```
+    module.exports = () => [
+      {
+        "path": "/backend/func1",
+        "proxy": {
+          "instance": "func1:3500",
+          "path": "/v1.0/invoke/func1/method/"
+        }
+      }
+    ];
+    ```
+  
+    So in order to access your function plugin instance its base url will be
+    something like this,
+      
+      
+    **http://localhost:9090/backend/func1**
+  
+  <br/>
+  
+  * In order to start this plugin you need to run the following command:
+      
+    ```bash
+      $ node glue develop:up
+    ```
+      
+    This command will start running the docker image of all the instances
+    and plugin you have created. Here, in this case it will start running
+    your function plugin instance image, inside your backend-engine container.
+  
+  <br/>
+  
+  * In order to check if this plugin is working correctly, there are already
+    few endpoints which you can check inside **server.js** file which is present
+    inside your instance folder.
+  
+  <br/>
+  
+  * For example in order to check health-status of your instance you can send
+    **GET Request** to this endpoint:
+    
+    **http://localhost:9090/backend/func1/health-check**
+    
+    If you get a response like this:
+    
+    ```
+    {
+      "status": true,
+      "message": "Health check performed successfully"
+    }
+    ```
+    
+    This means that your function plugin instance is running perfectly.
+    
+  <br/>
+  <br/>
+
+* ## Instructions to start development with this plugin
+  
+  <br/>
+  
+  * Inside your instance directory you can see that you have server.js file.
+    If you open this file, then you will see that there is some boilerplate
+    already written for your app in **Express**.
+  
+  <br/>
+  
+  * This is the main file for your function. You can start writing your own logic
+    from this file.
+
+
+
+
+
+
+
+
+
+
+
+
